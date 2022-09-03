@@ -5,6 +5,12 @@
   overflow: hidden;
 }
 
+#extra-circle {
+  width: 120px;
+  height: 120px; 
+  border-radius: 50%;
+}
+
 .ratio::before {
   display: block;
   width: 100%;
@@ -1174,6 +1180,31 @@ html.-dark-mode .-dark-bg-dark-1 {
   background-color: #140342 !important;
 }
 
+html.-dark-mode input.-dark-bg-dark-1 {
+  background-color: #140342 !important;
+}
+/* 
+html input {
+  border: 2px solid var(--color-purple-1);
+  color: #6440FB;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+html input:focus {
+  outline: none;
+} */
+.col-lg-7 input[name='message'] {
+  border: 2px solid var(--color-purple-1);
+  color: #6440FB;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.col-lg-7 input[name='message']:focus {
+  outline: none;
+}
+
 html.-dark-mode .-dark-bg-dark-2 {
   background-color: #2B1C55 !important;
 }
@@ -1265,7 +1296,7 @@ body {
 
 img {
   max-width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 a {
@@ -5012,6 +5043,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .header.-base-sidebar .row {
   flex-wrap: nowrap;
+}
+
+div.col-auto:nth-of-type(8) img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
 }
 
 @media (max-width: 767px) {
@@ -10385,10 +10422,12 @@ div[data-slider] > input[type=range]::-ms-tooltip {
   height: 120px;
 }
 
-.size-100 {
+.size-100,
+.size-50 {
   flex-shrink: 0;
-  width: 100px;
-  height: 100px;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
 }
 
 .size-180 {
@@ -10470,7 +10509,14 @@ div[data-slider] > input[type=range]::-ms-tooltip {
 }
 
 .relative {
+  max-width: 173.8px;
+  max-height: 77.5px;
   position: relative;
+}
+
+.relative {
+  width: 100%;
+  height: 100%
 }
 
 .side-image {
