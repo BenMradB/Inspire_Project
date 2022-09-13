@@ -8,7 +8,7 @@ const moment = require('moment');
 
 // Get trainer Dashboard Page
 const getTrainerDashboardPage = (req, res) => {
-    return res.render('trainer-dashboard', { user: req.user });
+    return res.render('teacher/trainer-dashboard', { user: req.user });
 }
 
 // Get the Trainer Messages Page
@@ -41,7 +41,7 @@ const getTrainerMessagesPage = (req, res) => {
 
                         const arrayUniqueByKey = [...new Map(arr.map(item => [item[key], item])).values()];
                         
-                        return res.render('dshb-trainer-messages', { user: req.user, contacts: arrayUniqueByKey });
+                        return res.render('teacher/dshb-trainer-messages', { user: req.user, contacts: arrayUniqueByKey });
                     }
                 });
             })
@@ -52,12 +52,12 @@ const getTrainerMessagesPage = (req, res) => {
 
 // Get The Trainer Login Page
 const getTrainerLoginPage = (req, res) => {
-    return res.render('trainer-login');
+    return res.render('teacher/trainer-login');
 };
 
 // Get the Edit Trainer Profile Page
 const getEditTrainerProfilePage = (req, res) => {
-    return res.render('edit-trainer-profile', { user: req.user });
+    return res.render('teacher/edit-trainer-profile', { user: req.user });
 }
 
 // Get Chating With A student Page 
@@ -86,7 +86,7 @@ const getChatWithAStudentPage = (req, res) => {
                     }
                 });
             } else {
-                return res.render('chat-with-student', { user: req.user, info: result[0], messages: result2 });
+                return res.render('teacher/chat-with-student', { user: req.user, info: result[0], messages: result2 });
             }
         });
     });
@@ -94,7 +94,7 @@ const getChatWithAStudentPage = (req, res) => {
 
 // Get Create Course Page
 const getCreateCoursePage = (req, res) => {
-    return res.render('dshb-create-course', { user: req.user});
+    return res.render('teacher/dshb-create-course', { user: req.user});
 }
 
 // Get All Trainer Courses
@@ -103,7 +103,7 @@ const getTrainerCourses = (req, res) => {
     db.query(sql, (err, result) => {
         if (err) throw err;
 
-        return res.render('trainer-courses', { user: req.user, myCourses: result });
+        return res.render('teacher/trainer-courses', { user: req.user, myCourses: result });
     });
 }
 
@@ -114,7 +114,7 @@ const getEditCoursePage = (req, res) => {
     db.query(sql, (err, result) => {
         if (err) throw err;
 
-        return res.render('edit-course', { user: req.user, courseId: req.params.id, thubmnail: result[0].thubmnail });
+        return res.render('teacher/edit-course', { user: req.user, courseId: req.params.id, thubmnail: result[0].thubmnail });
     });
 }
 

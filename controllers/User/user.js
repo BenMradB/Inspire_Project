@@ -8,22 +8,22 @@ const moment = require('moment');
 
 // GET The Login Page
 const getLoginPage = (req, res) => {
-    return res.render('login');
+    return res.render('student/login');
 };
 
 // GET The Sign Up Page
 const getSignupPage = (req, res) => {
-    return res.render('signup');
+    return res.render('student/signup');
 }
 
 // GET Dashboard Page 
 const getDashboardPage = (req, res) => {
-    return res.render('dashboard', { user: req.user });
+    return res.render('student/dashboard', { user: req.user });
 }
 
 // GET The Edit Profile Page
 const getEditProfilePage = (req, res) => {
-    return res.render('edit-profile', { user: req.user });
+    return res.render('student/edit-profile', { user: req.user });
 }
 
 // Get the Messages Page
@@ -45,7 +45,7 @@ const getMessagesPage = (req, res) => {
 
                     const arrayUniqueByKey = [...new Map(arr.map(item => [item[key], item])).values()];
 
-                    return res.render('dshb-messages', { user: req.user, contacts: arrayUniqueByKey });
+                    return res.render('student/dshb-messages', { user: req.user, contacts: arrayUniqueByKey });
                 }
             });
         });
@@ -77,7 +77,7 @@ const getChatWithSomeOnePage = (req, res) => {
                     }
                 });
             } else {
-                return res.render('chat-with-someone', { user: req.user, info: result[0], messages: result2 });
+                return res.render('student/chat-with-someone', { user: req.user, info: result[0], messages: result2 });
             }
         });
     });
@@ -99,13 +99,24 @@ const getStudentCoursesPage = (req, res) => {
                 arr.push(result2[0]);
 
                 if (arr.length === result.length) {
-                    return res.render('student-courses', { user: req.user, myCourses: arr });
+                    return res.render('student/student-courses', { user: req.user, myCourses: arr });
                 }
 
             });
         });
     });
 }
+
+// Store Private User Messages
+const storePrivateMessages = (req, res) => {
+    const { message } = req.body;
+
+    let sql = `INSERT INTO message SET ?`;
+    db.query(sql, { id_etudiant: req.user.id, id_formateur: req.params.id, contenu: message, whosTheSender: req.user.id, time: moment().format('h:mm a') }, (err, rows) => {
+        if (err) throw err;
+        return res.redirect(`/start-chating/with/${req.params.id}`);
+    });
+};
 
 // Get By Courses Page
 const getByCoursesPage = (req, res) => {
@@ -114,7 +125,7 @@ const getByCoursesPage = (req, res) => {
     db.query(sql, (err, result) => {
         if(err) throw err;
 
-        return res.render('by-courses', { user: req.user, allCourses: result });
+        return res.render('student/by-courses', { user: req.user, allCourses: result });
     });
 }
 
@@ -240,17 +251,6 @@ const editPassword = (req, res) => {
 
             return res.redirect(`/profile/edit-profile/${req.params.id}?success=${encodeURIComponent('password changed successfully')}`);
         });
-    });
-};
-
-// Store Private User Messages
-const storePrivateMessages = (req, res) => {
-    const { message } = req.body;
-
-    let sql = `INSERT INTO message SET ?`;
-    db.query(sql, { id_etudiant: req.user.id, id_formateur: req.params.id, contenu: message, whosTheSender: req.user.id, time: moment().format('h:mm a') }, (err, rows) => {
-        if (err) throw err;
-        return res.redirect(`/start-chating/with/${req.params.id}`);
     });
 };
 
