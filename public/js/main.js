@@ -158,13 +158,12 @@ function calendarDate() {
     })
   })
 }
-
 function darkModeSwitch() {
   const button = document.querySelector('.js-darkmode-toggle')
   if (!button) return;
 
   button.addEventListener('click', () => {
-
+    
     if (window.localStorage.getItem('mode') === 'light' ) {
       App.html.classList.add('-dark-mode');
       window.localStorage.setItem('mode', 'dark');
@@ -172,7 +171,8 @@ function darkModeSwitch() {
       App.html.classList.remove('-dark-mode');
       window.localStorage.setItem('mode', 'light');
     }
-
+    
+    document.querySelector('select').style.cssText = `background: #140342`;
   });
 }
 

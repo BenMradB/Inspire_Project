@@ -297,8 +297,8 @@ const byACourse = (req, res) => {
                         transporter.sendMail(mailOptions, (err, info) => {
                             if (err) throw err;
                             
-                            return res.redirect(`/by-courses?success=${encodeURIComponent('You Buy This Course')}`);
                         });
+                        return res.redirect(`/by-courses?success=${encodeURIComponent('You Buy This Course')}`);
                     });
                 });
             });

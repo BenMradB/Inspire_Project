@@ -24,7 +24,7 @@ const getTrainerMessagesPage = (req, res) => {
         db.query(sql, (err, result2) => {
             if (err) throw err;
 
-            if (result2.length === 0 ) return res.redirect(`/trainer-dashboard?error=${encodeURIComponent(`You Don't Have A contact Yet , Cause No One By Your Course(s) `)}`);
+            if (result2.length === 0) return res.redirect(`/trainer-dashboard?error=${encodeURIComponent(`You Don't Have A contact Yet , Cause No One By Your Course(s) `)}`);
 
             let arr = [];
 
@@ -94,7 +94,13 @@ const getChatWithAStudentPage = (req, res) => {
 
 // Get Create Course Page
 const getCreateCoursePage = (req, res) => {
-    return res.render('teacher/dshb-create-course', { user: req.user});
+    let sql = `SELECT * FROM categories`;
+
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+
+        return res.render('teacher/dshb-create-course', { user: req.user, categories: result});
+    });
 }
 
 // Get All Trainer Courses
@@ -209,7 +215,6 @@ const storePrivateTrainerMessages = (req, res) => {
 // Create A Course 
 const createCourse = (req, res) => {
     const { nom_form, courseSpecialization, description } = req.body;
-
     let sql = `INSERT INTO formation SET ?`;
     db.query(sql, { nom_form, courseSpecialization, description, nb_videos: 0, duree: '00:00', date_creation: moment().format('YYYY-MM-D'), id_formateur: req.params.id }, (err, rows) => {
         if (err) throw err;

@@ -25,10 +25,11 @@ const addVideo = (req, res) => {
         const fext = path.extname(req.file.originalname);
 
         if ( fext !== '.mp4' && fext !== '.MP4' ) return res.redirect(`/edit-course/${req.params.id}?error=${encodeURIComponent('accepted extention : .mp4 OR .MP4')}`);
+        
         let sql = `INSERT INTO videos SET ?`;
 
-        db.query(sql, { course_id: req.params.id, trainer_id: req.user.id_formateur, creation: moment().format('YYYY-MM-D'), video_URL: req.file.filename }, (err, row) => {
-            if (err) throw err;
+        db.query(sql, { course_id: req.params.id, trainer_id: req.user.id_formateur, creation: moment().format('YYYY-MM-D'), video_URL: req.file.filename, videoRank: req.body.videoRank }, (err, row) => {
+            if (err) return res.redirect(`/edit-course/${req.params.id}?error=${encodeURI(`${err.sqlMessage}`)}`);
 
             let sql = `UPDATE formation SET  nb_videos = nb_videos + 1  WHERE id_form = ${req.params.id}`;
 

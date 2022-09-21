@@ -281,6 +281,10 @@
           animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
+.hidden {
+  display: none;
+}
+
 [data-anim^='cover-right'] > *,
 [data-anim-child^='cover-right'] > * {
   opacity: 0;
