@@ -147,10 +147,9 @@
 
                         <div class="col-12">
 
-                          <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Course Specialization*</label>
+                          <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Course Category*</label>
 
-                          <!-- <input type="text" placeholder="Course Specialization" name="courseSpecialization" class="course-specialization hidden"> -->
-                          <select name="courseSpecialization">
+                          <select name="category">
                             <% categories.forEach(cat => { %>
                               <option value="<%=cat.category_name%>"><%=cat.category_name%></option>
                             <% }); %> 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 21 sep. 2022 à 19:32
+-- Généré le : jeu. 22 sep. 2022 à 11:34
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -74,9 +74,10 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`category_name`, `id`) VALUES
-('Web Development ', 1),
-('tyuziuaze', 2),
-('test', 3);
+('Full-Stack', 6),
+('Back-End', 5),
+('Front-End', 4),
+('Mobile-Dev', 7);
 
 -- --------------------------------------------------------
 
@@ -110,13 +111,6 @@ CREATE TABLE `enroulement` (
   `id_etudiant` int(11) NOT NULL,
   `id_format` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `enroulement`
---
-
-INSERT INTO `enroulement` (`id_enroulement`, `id_formation`, `id_etudiant`, `id_format`) VALUES
-(2, 26, 22, 10);
 
 -- --------------------------------------------------------
 
@@ -162,15 +156,16 @@ CREATE TABLE `formation` (
   `description` text NOT NULL,
   `id_formateur` int(11) NOT NULL,
   `prix` double NOT NULL,
-  `courseSpecialization` varchar(200) CHARACTER SET utf8 NOT NULL
+  `category` varchar(200) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `formation`
 --
 
-INSERT INTO `formation` (`id_form`, `nom_form`, `thubmnail`, `nb_videos`, `duree`, `date_creation`, `description`, `id_formateur`, `prix`, `courseSpecialization`) VALUES
-(26, 'JavaScript', 'thubmnail-1663774632535.png', 3, '00:00', '2022-09-21', 'From Zero To Hero', 10, 300, 'Js');
+INSERT INTO `formation` (`id_form`, `nom_form`, `thubmnail`, `nb_videos`, `duree`, `date_creation`, `description`, `id_formateur`, `prix`, `category`) VALUES
+(30, 'JavaScript', 'thubmnail-1663838739836.png', 2, '00:00', '2022-09-22', 'JavaScript Crash-Course', 10, 0, 'Front-End'),
+(31, 'NodeJs', 'thubmnail-1663838846770.jpg', 1, '00:00', '2022-09-22', 'NodeJs Crash-Course', 10, 0, 'Back-End');
 
 -- --------------------------------------------------------
 
@@ -271,9 +266,9 @@ CREATE TABLE `videos` (
 --
 
 INSERT INTO `videos` (`id_video`, `course_id`, `creation`, `video_URL`, `trainer_id`, `videoRank`) VALUES
-(10, 26, '2022-09-21', 'video_URL-1663776489951.mp4', 10, 1),
-(11, 26, '2022-09-21', 'video_URL-1663776496544.mp4', 10, 2),
-(16, 26, '2022-09-21', 'video_URL-1663777312184.mp4', 10, 3);
+(20, 30, '2022-09-22', 'video_URL-1663838755414.mp4', 10, 1),
+(21, 30, '2022-09-22', 'video_URL-1663838806591.mp4', 10, 2),
+(22, 31, '2022-09-22', 'video_URL-1663838856697.mp4', 10, 1);
 
 --
 -- Index pour les tables déchargées
@@ -357,7 +352,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `videos`
   ADD PRIMARY KEY (`id_video`),
-  ADD UNIQUE KEY `videoRank` (`videoRank`),
   ADD KEY `fk` (`course_id`),
   ADD KEY `FK_2` (`trainer_id`);
 
@@ -381,7 +375,7 @@ ALTER TABLE `bookmarks`
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `employee`
@@ -405,7 +399,7 @@ ALTER TABLE `formateur`
 -- AUTO_INCREMENT pour la table `formation`
 --
 ALTER TABLE `formation`
-  MODIFY `id_form` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_form` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT pour la table `message`
@@ -423,7 +417,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `videos`
 --
 ALTER TABLE `videos`
-  MODIFY `id_video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Contraintes pour les tables déchargées

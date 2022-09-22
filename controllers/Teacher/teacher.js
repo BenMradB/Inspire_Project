@@ -214,12 +214,12 @@ const storePrivateTrainerMessages = (req, res) => {
 
 // Create A Course 
 const createCourse = (req, res) => {
-    const { nom_form, courseSpecialization, description } = req.body;
+    const { nom_form, category, description } = req.body;
     let sql = `INSERT INTO formation SET ?`;
-    db.query(sql, { nom_form, courseSpecialization, description, nb_videos: 0, duree: '00:00', date_creation: moment().format('YYYY-MM-D'), id_formateur: req.params.id }, (err, rows) => {
+    db.query(sql, { nom_form, category, description, nb_videos: 0, duree: '00:00', date_creation: moment().format('YYYY-MM-D'), id_formateur: req.params.id }, (err, rows) => {
         if (err) throw err;
 
-        res.redirect(`${req.url}?success=${encodeURIComponent(`course has been registerd`)}`);
+        return res.redirect(`${req.url}?success=${encodeURIComponent(`course has been registerd`)}`);
     });
 }
 

@@ -22,7 +22,7 @@ const editCourseThubmnail = (req, res) => {
     upload(req, res, (err) => {
         if (err) return res.redirect(`/edit-course/${req.params.id}?error=${encodeURIComponent(err)}`);
 
-        if (!req.file) return res.redirect(`/edit-course/${req.params.id}?error=${encodeURIComponent('Choose a Thubmnail ')}`);
+        if (!req.file) return res.redirect(`/edit-course/${req.params.id}?error=${encodeURIComponent('Choose a Thumbnail ')}`);
 
         // extract the file extention from the uploaded file
         const fext = path.extname(req.file.originalname);

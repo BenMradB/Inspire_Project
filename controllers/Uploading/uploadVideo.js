@@ -26,18 +26,28 @@ const addVideo = (req, res) => {
 
         if ( fext !== '.mp4' && fext !== '.MP4' ) return res.redirect(`/edit-course/${req.params.id}?error=${encodeURIComponent('accepted extention : .mp4 OR .MP4')}`);
         
-        let sql = `INSERT INTO videos SET ?`;
+        if (!req.body.videoRank) return res.redirect(`/edit-course/${req.params.id}?error=${encodeURIComponent('please give us the rank of this video ')}`);
 
-        db.query(sql, { course_id: req.params.id, trainer_id: req.user.id_formateur, creation: moment().format('YYYY-MM-D'), video_URL: req.file.filename, videoRank: req.body.videoRank }, (err, row) => {
-            if (err) return res.redirect(`/edit-course/${req.params.id}?error=${encodeURI(`${err.sqlMessage}`)}`);
+        let sql = `SELECT videoRank FROM videos WHERE course_id = ${req.params.id} AND videoRank = ${req.body.videoRank}`;
 
-            let sql = `UPDATE formation SET  nb_videos = nb_videos + 1  WHERE id_form = ${req.params.id}`;
+        db.query(sql, (err, result0) => {
+            if (err) throw err;
 
-            db.query(sql, (err, rows) => {
+            if (result0.length !== 0) return res.redirect(`/edit-course/${req.params.id}?error=${encodeURIComponent('there is video under that rank')}`);
+        
+            let sql = `INSERT INTO videos SET ?`;
+
+            db.query(sql, { course_id: req.params.id, trainer_id: req.user.id_formateur, creation: moment().format('YYYY-MM-D'), video_URL: req.file.filename, videoRank: req.body.videoRank }, (err, row) => {
                 if (err) throw err;
 
-                return res.redirect(`/edit-course/${req.params.id}?success=${encodeURIComponent('Vido Added To This Course successfully')}`);
+                let sql = `UPDATE formation SET  nb_videos = nb_videos + 1  WHERE id_form = ${req.params.id}`;
 
+                db.query(sql, (err, rows) => {
+                    if (err) throw err;
+
+                    return res.redirect(`/edit-course/${req.params.id}?success=${encodeURIComponent('Video Added To This Course successfully')}`);
+
+                });
             });
         });
     });
